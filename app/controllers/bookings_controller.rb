@@ -18,6 +18,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       flash[:notice] = "Booked successfully!"
+      BookingMailer.booking_email(@user).deliver_now
       redirect_to :action=>"show",:controller=>"users", id: current_user.id
     else(@booking.nil?)
       flash[:notice] = "Please sign in!"
